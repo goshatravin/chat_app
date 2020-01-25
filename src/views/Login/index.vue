@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
     name: 'Login',
     data () {
@@ -24,21 +23,8 @@ export default {
             if (!this.userName || this.userName.length < 3) {
                 this.errors = 'Пожалуйста... укажите коректное имя длиной от 3 символов'
             } else {
-                axios({
-                    method: 'post',
-                    url: '/',
-                    data: {
-                        userName: this.userName
-                    }
-                })
-                    .then(result => {
-                        console.debug('ответ на вход', result)
-                        this.$store.dispatch('saveUserName', this.userName)
-                        this.$router.push('/chat')
-                    })
-                    .catch(error => {
-                        console.error('ответ на вход', error)
-                    })
+                this.$store.dispatch('saveUserName', this.userName)
+                this.$router.push('/chat')
             }
         }
     }
